@@ -9,6 +9,12 @@ public class RegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_page2);
+        setContentView(R.layout.activity_register_page);
+
+        registerPageForm();
+    }
+
+    private void registerPageForm() {
+
     }
 }
