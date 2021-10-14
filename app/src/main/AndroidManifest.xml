@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobProgLabQuiz1">
         <activity
+            android:name=".RegisterPage"
+            android:exported="true" />
+        <activity
             android:name=".ui.login.RegisterPage"
             android:exported="true" />
         <activity
