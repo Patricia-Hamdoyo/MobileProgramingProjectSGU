@@ -11,28 +11,23 @@
         android:theme="@style/Theme.MobProgLabQuiz1">
         <activity
             android:name=".RegisterPage"
+            android:parentActivityName=".LoginPage"
             android:exported="true" />
-        <activity
-            android:name=".ui.login.RegisterPage"
-            android:exported="true" />
-        <activity
-            android:name=".ui.login.DataModelViewHolder"
-            android:exported="true"
-            android:label="@string/title_activity_data_model_view_holder" />
         <activity
             android:name=".HomePage"
             android:exported="true" />
         <activity
             android:name=".LoginPage"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
         </activity>
     </application>
 
