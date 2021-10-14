@@ -14,7 +14,7 @@ public class RegisterPage extends AppCompatActivity {
         registerPageForm();
     }
 
-    private void registerPageForm() {
+    private void registerPageForm(String firstName, String lastName, String email, Password password) {
 
     }
 }
