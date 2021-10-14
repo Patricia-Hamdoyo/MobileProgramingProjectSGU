@@ -55,7 +55,8 @@
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:text="Login"/>
+            android:text="Login"
+            android:id="@+id/activity_login_page_login_button"/>
         <Space
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -64,7 +65,8 @@
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:text="Register"/>
+            android:text="Register"
+            android:id="@+id/activity_login_page_register_button"/>
         <Space
             android:layout_weight="1"
             android:layout_width="0dp"
