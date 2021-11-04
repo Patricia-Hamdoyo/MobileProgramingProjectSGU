@@ -12,7 +12,7 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        goToLoginPage();
+//        goToLoginPage();
     }
 
     private void registerPageForm(String firstName, String lastName, String email, String password) {
