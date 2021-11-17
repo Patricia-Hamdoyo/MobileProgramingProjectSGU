@@ -18,6 +18,6 @@ public class RegisterPage extends AppCompatActivity {
     private void registerPageForm(String firstName, String lastName, String email, String password) {
         Intent intent = new Intent();
 
-
+        //store data in database
     }
 }

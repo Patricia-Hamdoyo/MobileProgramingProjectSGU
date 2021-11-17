@@ -64,12 +64,12 @@ public class NetworkActivity extends AppCompatActivity {
                                 Log.d("USER MODEL", um.getAvatar());
                             }
 
-                            Glide
-                                    .with(NetworkActivity.this)
-                                    .load("https://reqres.in/img/faces/4-image.jpg")
-                                    .circleCrop()
-//                                    .placeholder(R.drawable.ic_baseline_lock_24)
-                                    .into(ppImageView);
+//                            Glide
+//                                    .with(NetworkActivity.this)
+//                                    .load("https://reqres.in/img/faces/4-image.jpg")
+//                                    .circleCrop()
+////                                    .placeholder(R.drawable.ic_baseline_lock_24)
+//                                    .into(ppImageView);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
