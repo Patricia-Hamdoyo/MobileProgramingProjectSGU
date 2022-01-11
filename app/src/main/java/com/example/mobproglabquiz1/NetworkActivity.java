@@ -1,11 +1,14 @@
 package com.example.mobproglabquiz1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,6 +48,9 @@ public class NetworkActivity extends AppCompatActivity {
 
                             userModels = new ArrayList<>();
                             ImageView ppImageView = findViewById(R.id.profile_picture_image_view);
+                            userModels.add(new UserModel("1", "user1@gmail.com", "Aiko", "Meiko", R.drawable.ic_baseline_accessibility_24));
+                            userModels.add(new UserModel("2", "user2@gmail.com", "Nava", "Rone", R.drawable.ic_baseline_4k_24));
+                            userModels.add(new UserModel("3", "user3@gmail.com", "Cia", "Gyu", R.drawable.ic_baseline_4k_24));
 
                             JSONArray userDataJSONArray = jsonObject.getJSONArray("data");
                             for(int i = 0; i < userDataJSONArray.length(); i++){
@@ -54,15 +60,16 @@ public class NetworkActivity extends AppCompatActivity {
                                         userDataJSONObject.getString("email"),
                                         userDataJSONObject.getString("first_name"),
                                         userDataJSONObject.getString("last_name"),
-                                        userDataJSONObject.getString("avatar")
+                                        userDataJSONObject.getInt("avatar")
                                 );
                                 userModels.add(userModel);
                             }
 
-                            for(UserModel um : userModels){
-                                Log.d("USER MODEL", um.getFirstName());
-                                Log.d("USER MODEL", um.getAvatar());
-                            }
+//                            for(UserModel um : userModels){
+//                                Log.d("USER MODEL", um.getFirstName());
+////                                Log.d("USER MODEL", );
+//                                Log.d("USER MODEL", um.getLastName());
+//                            }
 
 //                            Glide
 //                                    .with(NetworkActivity.this)
@@ -84,5 +91,23 @@ public class NetworkActivity extends AppCompatActivity {
                 }
         );
         queue.add(stringRequest);
+    }
+
+    class UserModelViewHolder extends RecyclerView.ViewHolder {
+
+        TextView emailTextView;
+        TextView nameTextView;
+        TextView idTextView;
+        ImageView imageView;
+
+//    View rootView;
+
+        public UserModelViewHolder(@NonNull View itemView) {
+            super(itemView);
+//            emailTextView = itemView.findViewById(R.id.user_info_view_email_text);
+//            nameTextView = itemView.findViewById(R.id.user_info_view_name_text);
+//            idTextView = itemView.findViewById(R.id.user_info_view_id_text);
+//            imageView = itemView.findViewById(R.id.user_info_view_profile_image);
+        }
     }
 }

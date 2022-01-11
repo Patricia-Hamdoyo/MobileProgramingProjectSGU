@@ -1,17 +1,14 @@
 package com.example.mobproglabquiz1.models;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-
 public class UserModel {
 
     private String id;
     private String email;
     private String firstName;
     private String lastName;
-    private String avatar;
+    private int avatar;
 
-    public UserModel(String id, String email, String firstName, String lastName, String avatar) {
+    public UserModel(String id, String email, String firstName, String lastName, int avatar) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -51,11 +48,11 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public String getAvatar() {
+    public int getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(int avatar) {
         this.avatar = avatar;
     }
 }
