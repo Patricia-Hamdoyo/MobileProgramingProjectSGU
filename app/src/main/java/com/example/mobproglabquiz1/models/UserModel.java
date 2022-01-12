@@ -4,16 +4,14 @@ public class UserModel {
 
     private String id;
     private String email;
-    private String firstName;
-    private String lastName;
-    private int avatar;
+    private String fullname;
+    private String password;
 
-    public UserModel(String id, String email, String firstName, String lastName, int avatar) {
+    public UserModel(String id, String email, String fullname, String password) {
         this.id = id;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.avatar = avatar;
+        this.fullname = fullname;
+        this.password = password;
     }
 
     public String getId() {
@@ -32,27 +30,19 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(int avatar) {
-        this.avatar = avatar;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
