@@ -36,34 +36,37 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:padding="3dp"
-                android:orientation="horizontal"
-                >
+                android:layout_height="wrap_content"
+                android:padding="3dp">
 
                 <Button
                     android:id="@+id/order_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/ic_baseline_list_alt_24"
-                    />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:ignore="MissingConstraints" />
 
                 <Button
                     android:id="@+id/home_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/ic_baseline_home_24"
-                    />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="MissingConstraints" />
 
                 <Button
                     android:id="@+id/setting_button"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/ic_baseline_settings_24"
-                    />
-            </LinearLayout>
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
 
