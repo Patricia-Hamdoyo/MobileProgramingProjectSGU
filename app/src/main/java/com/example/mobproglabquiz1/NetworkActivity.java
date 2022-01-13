@@ -35,9 +35,9 @@ public class NetworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_network);
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://reqres.in/api/users";
+        String url = "http://103.150.98.211:3000/user";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringGetRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -47,35 +47,23 @@ public class NetworkActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
 
                             userModels = new ArrayList<>();
-                            ImageView ppImageView = findViewById(R.id.profile_picture_image_view);
-                            userModels.add(new UserModel("user1@gmail.com", "Aiko Meiko", "pa55W0rd!"));
-                            userModels.add(new UserModel("user2@gmail.com", "Nava Rone", "pAssw0rd!"));
-                            userModels.add(new UserModel("user3@gmail.com", "Cia Gyu", "Gyu!123"));
+//                            ImageView ppImageView = findViewById(R.id.profile_picture_image_view);
+//                            userModels.add(new UserModel(2, "user1@gmail.com", "Aiko Meiko", "pa55W0rd!"));
+//                            userModels.add(new UserModel(3, "user2@gmail.com", "Nava Rone", "pAssw0rd!"));
+//                            userModels.add(new UserModel(4, "user3@gmail.com", "Cia Gyu", "Gyu!123"));
 
                             JSONArray userDataJSONArray = jsonObject.getJSONArray("data");
                             for(int i = 0; i < userDataJSONArray.length(); i++){
                                 JSONObject userDataJSONObject = userDataJSONArray.getJSONObject((i));
                                 UserModel userModel = new UserModel(
+                                        userDataJSONObject.getString("id"),
                                         userDataJSONObject.getString("email"),
                                         userDataJSONObject.getString("fullname"),
-                                        userDataJSONObject.getString("password")
+                                        userDataJSONObject.getString("password"),
+                                        userDataJSONObject.getString("salt")
                                 );
                                 userModels.add(userModel);
                             }
-
-//                            for(UserModel um : userModels){
-//                                Log.d("USER MODEL", um.getFirstName());
-////                                Log.d("USER MODEL", );
-//                                Log.d("USER MODEL", um.getLastName());
-//                            }
-
-//                            Glide
-//                                    .with(NetworkActivity.this)
-//                                    .load("https://reqres.in/img/faces/4-image.jpg")
-//                                    .circleCrop()
-////                                    .placeholder(R.drawable.ic_baseline_lock_24)
-//                                    .into(ppImageView);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -88,7 +76,7 @@ public class NetworkActivity extends AppCompatActivity {
                     }
                 }
         );
-        queue.add(stringRequest);
+        queue.add(stringGetRequest);
     }
 
     class UserModelViewHolder extends RecyclerView.ViewHolder {
@@ -96,14 +84,18 @@ public class NetworkActivity extends AppCompatActivity {
         TextView emailTextView;
         TextView nameTextView;
         TextView idTextView;
+        TextView passwordTextView;
+        TextView saltTextView;
 
 //    View rootView;
 
         public UserModelViewHolder(@NonNull View itemView) {
             super(itemView);
-//            emailTextView = itemView.findViewById(R.id.user_info_view_email_text);
-//            nameTextView = itemView.findViewById(R.id.user_info_view_name_text);
-//            idTextView = itemView.findViewById(R.id.user_info_view_id_text);
+            emailTextView = itemView.findViewById(R.id.emailInput);
+            nameTextView = itemView.findViewById(R.id.fullNameInput);
+//            idTextView = itemView.findViewById(R.id.id);
+            passwordTextView = itemView.findViewById(R.id.passwordInput);
+//            saltTextView = itemView.findViewById(R.id.user_info_view_salt_text);
         }
     }
 }

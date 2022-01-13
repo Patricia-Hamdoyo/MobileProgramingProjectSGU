@@ -7,10 +7,14 @@ public class UserModel {
     private String fullname;
     private String password;
 
-    public UserModel(String email, String fullname, String password) {
+    private String salt;
+
+    public UserModel(String id, String email, String fullname, String password, String salt) {
+        this.id = id;
         this.email = email;
         this.fullname = fullname;
         this.password = password;
+        this.salt = salt;
     }
 
     public String getId() {
@@ -43,5 +47,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
