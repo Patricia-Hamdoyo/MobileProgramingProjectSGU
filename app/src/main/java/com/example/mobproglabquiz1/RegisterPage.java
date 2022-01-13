@@ -16,6 +16,9 @@ public class RegisterPage extends AppCompatActivity {
         setContentView(R.layout.activity_register_page);
 
         registerButton = findViewById(R.id.activity_register_page_register_button);
+        
+        //send data to database
+
 
         registerButton.setOnClickListener((view) -> {
             Intent intent = new Intent(this, LoginPage.class);

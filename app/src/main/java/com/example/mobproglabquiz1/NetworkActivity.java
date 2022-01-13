@@ -48,15 +48,14 @@ public class NetworkActivity extends AppCompatActivity {
 
                             userModels = new ArrayList<>();
                             ImageView ppImageView = findViewById(R.id.profile_picture_image_view);
-                            userModels.add(new UserModel("1", "user1@gmail.com", "Aiko Meiko", "pa55W0rd!"));
-                            userModels.add(new UserModel("2", "user2@gmail.com", "Nava Rone", "pAssw0rd!"));
-                            userModels.add(new UserModel("3", "user3@gmail.com", "Cia Gyu", "Gyu!123"));
+                            userModels.add(new UserModel("user1@gmail.com", "Aiko Meiko", "pa55W0rd!"));
+                            userModels.add(new UserModel("user2@gmail.com", "Nava Rone", "pAssw0rd!"));
+                            userModels.add(new UserModel("user3@gmail.com", "Cia Gyu", "Gyu!123"));
 
                             JSONArray userDataJSONArray = jsonObject.getJSONArray("data");
                             for(int i = 0; i < userDataJSONArray.length(); i++){
                                 JSONObject userDataJSONObject = userDataJSONArray.getJSONObject((i));
                                 UserModel userModel = new UserModel(
-                                        userDataJSONObject.getString("id"),
                                         userDataJSONObject.getString("email"),
                                         userDataJSONObject.getString("fullname"),
                                         userDataJSONObject.getString("password")
@@ -97,7 +96,6 @@ public class NetworkActivity extends AppCompatActivity {
         TextView emailTextView;
         TextView nameTextView;
         TextView idTextView;
-        ImageView imageView;
 
 //    View rootView;
 
@@ -106,7 +104,6 @@ public class NetworkActivity extends AppCompatActivity {
 //            emailTextView = itemView.findViewById(R.id.user_info_view_email_text);
 //            nameTextView = itemView.findViewById(R.id.user_info_view_name_text);
 //            idTextView = itemView.findViewById(R.id.user_info_view_id_text);
-//            imageView = itemView.findViewById(R.id.user_info_view_profile_image);
         }
     }
 }
