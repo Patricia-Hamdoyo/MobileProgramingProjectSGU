@@ -2,14 +2,14 @@ package com.example.mobproglabquiz1.models;
 
 public class UserModel {
 
-    private String id;
+    private int id;
     private String email;
     private String fullname;
     private String password;
 
     private String salt;
 
-    public UserModel(String id, String email, String fullname, String password, String salt) {
+    public UserModel(int id, String email, String fullname, String password, String salt) {
         this.id = id;
         this.email = email;
         this.fullname = fullname;
@@ -17,11 +17,22 @@ public class UserModel {
         this.salt = salt;
     }
 
-    public String getId() {
+    public UserModel(String email, String fullname, String password) {
+        this.email = email;
+        this.fullname = fullname;
+        this.password = password;
+    }
+
+    public UserModel(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

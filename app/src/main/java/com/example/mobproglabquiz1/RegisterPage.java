@@ -2,10 +2,15 @@ package com.example.mobproglabquiz1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,7 +18,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mobproglabquiz1.dao.UserDAO;
 import com.example.mobproglabquiz1.models.UserModel;
+import com.example.mobproglabquiz1.utils.VolleyErrorListener;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,70 +31,72 @@ import java.util.ArrayList;
 
 public class RegisterPage extends AppCompatActivity {
 
+    EditText fullName;
+    EditText email;
+    EditText password;
     Button registerButton;
-    ArrayList<UserModel> userModels;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
+        fullName = (EditText) findViewById(R.id.activity_register_fullname_input);
+        email = (EditText) findViewById(R.id.activity_register_email_input);
+        password = (EditText) findViewById(R.id.activity_register_email_input);
+
         registerButton = findViewById(R.id.activity_register_page_register_button);
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://103.150.98.211:3000/user";
-        
-        //send data to database
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("RESULT", response);
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            userModels = new ArrayList<>();
-//                            ImageView ppImageView = findViewById(R.id.profile_picture_image_view);
-//                            userModels.add(new UserModel(2, "user1@gmail.com", "Aiko Meiko", "pa55W0rd!"));
-//                            userModels.add(new UserModel(3, "user2@gmail.com", "Nava Rone", "pAssw0rd!"));
-//                            userModels.add(new UserModel(4, "user3@gmail.com", "Cia Gyu", "Gyu!123"));
-
-                            JSONArray userDataJSONArray = jsonObject.getJSONArray("data");
-                            for(int i = 0; i < userDataJSONArray.length(); i++){
-                                JSONObject userDataJSONObject = userDataJSONArray.getJSONObject((i));
-                                UserModel userModel = new UserModel(
-                                        userDataJSONObject.getString("id"),
-                                        userDataJSONObject.getString("fullname"), //R.id.fullNameInput
-                                        userDataJSONObject.getString("email"),
-                                        userDataJSONObject.getString("password"),
-                                        userDataJSONObject.getString("salt")
-                                );
-                                userModels.add(userModel);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("FETCH_ERROR", error.networkResponse.toString());
-                    }
-                }
-        );
-        queue.add(stringRequest);
-
-        registerButton.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, LoginPage.class);
-            startActivity(intent);
-        });
+        registerButton.setOnClickListener(view -> register(view));
     }
 
-    private void registerPageForm(String firstName, String lastName, String email, String password) {
-        Intent intent = new Intent();
+    private void register(View view) {
+        if (isInputValid()) {
+            progressDialog = new ProgressDialog(view.getContext());
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Creating account...");
+            progressDialog.show();
+        }
 
-        //store data in database
+        UserModel user = new UserModel(
+                email.getText().toString(),
+                fullName.getText().toString(),
+                password.getText().toString()
+        );
+        new UserDAO(view.getContext()).register(user, onLoginSuccessCallback, new VolleyErrorListener(this, progressDialog));
+    }
+
+    private Response.Listener<String> onLoginSuccessCallback = new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            Log.d(RegisterPage.class.getName(), response);
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("email", email.getText().toString());
+            bundle.putString("password", password.getText().toString());
+            intent.putExtras(bundle);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+            progressDialog.dismiss();
+        }
+    };
+
+    private boolean isInputValid() {
+        boolean isAllValid = true;
+        if (fullName.getText().length() == 0) {
+            fullName.setError("Please fill in your full name!");
+            isAllValid = false;
+        }
+        if (email.getText().length() == 0) {
+            email.setError("Please fill in your email address!");
+            isAllValid = false;
+        }
+        if (password.getText().length() <= 8) {
+            password.setError("Passwords must be at least 8 characters!");
+            isAllValid = false;
+        }
+
+        return isAllValid;
     }
 }

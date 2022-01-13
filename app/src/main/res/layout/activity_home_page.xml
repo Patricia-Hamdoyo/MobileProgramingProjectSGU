@@ -1,76 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:scrollbarTrackVertical="@color/black"
-    android:id="@+id/homepage">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <ImageView
-            android:id="@+id/homepage_bg_imageview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_white_bg" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/homepage_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu"/>
 
-        <TextView
-            android:id="@+id/homepage_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Welcome, Albedo!"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/homepage_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="10dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp">
-
-                <Button
-                    android:id="@+id/home_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ic_baseline_home_24"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    tools:ignore="MissingConstraints"
-                    />
-
-                <Button
-                    android:id="@+id/order_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ic_baseline_list_alt_24"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    tools:ignore="MissingConstraints"
-                    />
-
-                <Button
-                    android:id="@+id/setting_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ic_baseline_settings_24"
-                    app:layout_constraintRight_toRightOf="parent"
-                    tools:ignore="MissingConstraints"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
