@@ -13,17 +13,24 @@
         android:theme="@style/Theme.MobProgLabQuiz1"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".CreatorRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreatorMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserRegisterActivity"
             android:exported="true"
             android:parentActivityName=".LoginActivity" />
         <activity
-            android:name=".UserActivity"
+            android:name=".UserMainActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

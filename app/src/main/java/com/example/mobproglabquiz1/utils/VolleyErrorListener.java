@@ -9,6 +9,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
+
 public class VolleyErrorListener implements Response.ErrorListener {
 
     private static final int HTTP_INTERNAL_SERVER_ERROR = 500;
@@ -29,9 +31,15 @@ public class VolleyErrorListener implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.d(VolleyErrorListener.class.getName(), "Error caught");
+        try {
+            Log.e(VolleyErrorListener.class.getName(), new String(error.networkResponse.data, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         if (error.networkResponse == null) {
             Toast.makeText(context, "Connection error", Toast.LENGTH_LONG).show();
-            progressDialog.dismiss();
+            if (progressDialog != null)
+                progressDialog.dismiss();
             return;
         }
         ErrorResponseWrapper errorResponse = new Gson().fromJson(error.getMessage(), ErrorResponseWrapper.class);
@@ -41,7 +49,8 @@ public class VolleyErrorListener implements Response.ErrorListener {
             Log.d("notice", "Hola");
 
         }
-        progressDialog.dismiss();
+        if (progressDialog != null)
+            progressDialog.dismiss();
     }
 }
 

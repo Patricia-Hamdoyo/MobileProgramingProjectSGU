@@ -16,7 +16,7 @@ import com.example.mobproglabquiz1.dao.UserDAO;
 import com.example.mobproglabquiz1.models.UserModel;
 import com.example.mobproglabquiz1.utils.VolleyErrorListener;
 
-public class RegisterActivity extends AppCompatActivity {
+public class UserRegisterActivity extends AppCompatActivity {
 
     EditText fullName;
     EditText email;
@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_user_register);
 
         fullName = (EditText) findViewById(R.id.activity_register_fullname_input);
         email = (EditText) findViewById(R.id.activity_register_email_input);
@@ -58,12 +58,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Response.Listener<String> onLoginSuccessCallback = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.d(RegisterActivity.class.getName(), response);
+            Log.d(UserRegisterActivity.class.getName(), response);
             Intent intent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putString("email", email.getText().toString());
-            bundle.putString("password", password.getText().toString());
-            intent.putExtras(bundle);
             setResult(Activity.RESULT_OK, intent);
             finish();
             progressDialog.dismiss();

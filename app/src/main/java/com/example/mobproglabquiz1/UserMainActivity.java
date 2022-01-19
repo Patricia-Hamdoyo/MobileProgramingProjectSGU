@@ -9,7 +9,7 @@ import com.example.mobproglabquiz1.fragments.UserOrderFragment;
 import com.example.mobproglabquiz1.fragments.UserSettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class UserActivity extends AppCompatActivity {
+public class UserMainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Bundle bundle;
@@ -17,7 +17,7 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_user_main);
 
         bundle = getIntent().getExtras();
 

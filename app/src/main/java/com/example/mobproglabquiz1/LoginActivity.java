@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.activity_login_page_login_button);
 
         registerButton.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, RegisterActivity.class);
+            Intent intent = new Intent(this, UserRegisterActivity.class);
             startActivityForResult(intent, 1001);
         });
         loginButton.setOnClickListener((view) -> {
@@ -75,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onResponse(String response) {
             Log.d(LoginActivity.class.getName(), response);
-            LoginResponse result = new Gson().fromJson(response, LoginResponse.class);
-            Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+            ResultResponse result = new Gson().fromJson(response, ResultResponse.class);
+            Intent intent = new Intent(LoginActivity.this, UserMainActivity.class);
 
             Bundle bundle = new Bundle();
             bundle.putInt("user_id", result.getUser_id());
@@ -90,8 +90,9 @@ public class LoginActivity extends AppCompatActivity {
     };
 }
 
-class LoginResponse {
+class ResultResponse {
     int user_id;
+    String name;
 
     public int getUser_id() {
         return user_id;
@@ -108,7 +109,4 @@ class LoginResponse {
     public void setName(String name) {
         this.name = name;
     }
-
-    String name;
-
 }
