@@ -10,26 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.mobproglabquiz1.dao.UserDAO;
 import com.example.mobproglabquiz1.models.UserModel;
 import com.example.mobproglabquiz1.utils.VolleyErrorListener;
-import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-public class RegisterPage extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     EditText fullName;
     EditText email;
@@ -41,11 +28,11 @@ public class RegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_page);
+        setContentView(R.layout.activity_register);
 
         fullName = (EditText) findViewById(R.id.activity_register_fullname_input);
         email = (EditText) findViewById(R.id.activity_register_email_input);
-        password = (EditText) findViewById(R.id.activity_register_email_input);
+        password = (EditText) findViewById(R.id.activity_register_password_input);
 
         registerButton = findViewById(R.id.activity_register_page_register_button);
         registerButton.setOnClickListener(view -> register(view));
@@ -64,13 +51,14 @@ public class RegisterPage extends AppCompatActivity {
                 fullName.getText().toString(),
                 password.getText().toString()
         );
+        Log.d("AuthInput", user.getEmail() + " " + user.getPassword());
         new UserDAO(view.getContext()).register(user, onLoginSuccessCallback, new VolleyErrorListener(this, progressDialog));
     }
 
     private Response.Listener<String> onLoginSuccessCallback = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.d(RegisterPage.class.getName(), response);
+            Log.d(RegisterActivity.class.getName(), response);
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString("email", email.getText().toString());

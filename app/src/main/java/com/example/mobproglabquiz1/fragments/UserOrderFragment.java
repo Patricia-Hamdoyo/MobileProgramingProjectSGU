@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment;
 import com.example.mobproglabquiz1.R;
 
 
-public class OrderFragment extends Fragment {
+public class UserOrderFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_order, container, false);
         return view;
     }
 }

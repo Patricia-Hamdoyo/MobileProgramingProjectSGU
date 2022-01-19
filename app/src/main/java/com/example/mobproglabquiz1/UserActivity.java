@@ -1,16 +1,15 @@
 package com.example.mobproglabquiz1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-import com.example.mobproglabquiz1.fragments.HomeFragment;
-import com.example.mobproglabquiz1.fragments.OrderFragment;
-import com.example.mobproglabquiz1.fragments.SettingsFragment;
+import com.example.mobproglabquiz1.fragments.UserHomeFragment;
+import com.example.mobproglabquiz1.fragments.UserOrderFragment;
+import com.example.mobproglabquiz1.fragments.UserSettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomePage extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Bundle bundle;
@@ -18,7 +17,7 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_user);
 
         bundle = getIntent().getExtras();
 
@@ -28,19 +27,19 @@ public class HomePage extends AppCompatActivity {
             
             switch (item.getItemId()){
                 case R.id.home_menu:
-                    fragment = HomeFragment.class;
+                    fragment = UserHomeFragment.class;
                     break;
                 case R.id.order_menu:
-                    fragment = OrderFragment.class;
+                    fragment = UserOrderFragment.class;
                     break;
                 case R.id.settings_menu:
-                    fragment = SettingsFragment.class;
+                    fragment = UserSettingsFragment.class;
                     break;
             }
             return loadFragment(fragment);
         });
 
-        loadFragment(HomeFragment.class);
+        loadFragment(UserHomeFragment.class);
     }
 
     private boolean loadFragment(Class fragment) {

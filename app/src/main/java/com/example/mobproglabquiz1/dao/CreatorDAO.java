@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.mobproglabquiz1.models.CreatorModel;
 import com.example.mobproglabquiz1.models.UserModel;
 import com.example.mobproglabquiz1.utils.Constants;
 import com.google.gson.Gson;
@@ -16,11 +17,10 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserDAO {
-
+public class CreatorDAO {
     private Context context;
 
-    public UserDAO(Context context) {
+    public CreatorDAO(Context context) {
         this.context = context;
     }
 
@@ -28,11 +28,11 @@ public class UserDAO {
         return context;
     }
 
-    public void register(final UserModel model, Response.Listener<String> successAction, Response.ErrorListener errorAction) {
+    public void login(final int id, Response.Listener<String> successAction, Response.ErrorListener errorAction) {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                Constants.getRoute("user/register"),
+                Constants.getRoute("creator/login"),
                 successAction,
                 errorAction
         ) {
@@ -50,37 +50,8 @@ public class UserDAO {
 
             @Override
             public byte[] getBody() throws AuthFailureError {
-                Log.d("JSON", new Gson().toJson(model));
-                return new Gson().toJson(model).getBytes();
-            }
-        };
-        queue.add(request);
-    }
-
-    public void login(final UserModel model, Response.Listener<String> successAction, Response.ErrorListener errorAction) {
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                Constants.getRoute("user/login"),
-                successAction,
-                errorAction
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                super.getHeaders();
-                Map<String, String> header = new HashMap<>();
-                header.put("Content-Type", "application/json; charset=utf-8");
-                return header;
-            }
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                Log.d("JSON", new Gson().toJson(model));
-                return new Gson().toJson(model).getBytes();
+                String json = "{\"id\":" + id + '}';
+                return json.getBytes();
             }
         };
         queue.add(request);

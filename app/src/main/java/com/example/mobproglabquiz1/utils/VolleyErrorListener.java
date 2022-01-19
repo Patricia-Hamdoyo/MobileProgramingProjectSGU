@@ -35,20 +35,8 @@ public class VolleyErrorListener implements Response.ErrorListener {
             return;
         }
         ErrorResponseWrapper errorResponse = new Gson().fromJson(error.getMessage(), ErrorResponseWrapper.class);
-        if(error.networkResponse.statusCode == HTTP_BAD_REQUEST) {
-            Toast.makeText(context, "Application error", Toast.LENGTH_LONG).show();
-        } else if(error.networkResponse.statusCode == HTTP_UNAUTHORIZED) {
-            Toast.makeText(context, "Invalid credential", Toast.LENGTH_LONG).show();
-        } else if(error.networkResponse.statusCode == HTTP_FORBIDDEN) {
-            Toast.makeText(context, "Session timeout, please re-login", Toast.LENGTH_LONG).show();
-        } else if(error.networkResponse.statusCode == HTTP_NOT_FOUND) {
-            Toast.makeText(context, "Application error", Toast.LENGTH_LONG).show();
-        } else if(error.networkResponse.statusCode == HTTP_CONFLICT) {
-            Toast.makeText(context, "Username unavailable", Toast.LENGTH_LONG).show();
-        } else if(error.networkResponse.statusCode >= HTTP_INTERNAL_SERVER_ERROR) {
-            Toast.makeText(context, "Unknown error", Toast.LENGTH_LONG).show();
-        } else if(errorResponse.getMessage() != null) {
-            Toast.makeText(context, errorResponse.getMessage(), Toast.LENGTH_LONG).show();
+        if (errorResponse.getError() != null) {
+            Toast.makeText(context, errorResponse.getError(), Toast.LENGTH_LONG).show();
         } else {
             Log.d("notice", "Hola");
 

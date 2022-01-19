@@ -2,7 +2,6 @@ package com.example.mobproglabquiz1;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -20,7 +19,7 @@ import com.example.mobproglabquiz1.models.UserModel;
 import com.example.mobproglabquiz1.utils.VolleyErrorListener;
 import com.google.gson.Gson;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText email;
     EditText password;
@@ -33,7 +32,7 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_login);
 
         email = findViewById(R.id.activity_login_email_input);
         password = findViewById(R.id.activity_login_password_input);
@@ -42,7 +41,7 @@ public class LoginPage extends AppCompatActivity {
         loginButton = findViewById(R.id.activity_login_page_login_button);
 
         registerButton.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, RegisterPage.class);
+            Intent intent = new Intent(this, RegisterActivity.class);
             startActivityForResult(intent, 1001);
         });
         loginButton.setOnClickListener((view) -> {
@@ -68,15 +67,16 @@ public class LoginPage extends AppCompatActivity {
                 email.getText().toString(),
                 password.getText().toString()
         );
+        Log.d("AuthInput", user.getEmail() + " " + user.getPassword());
         new UserDAO(view.getContext()).login(user, onLoginSuccessCallback, new VolleyErrorListener(this, progressDialog));
     }
 
     private Response.Listener<String> onLoginSuccessCallback = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.d(LoginPage.class.getName(), response);
+            Log.d(LoginActivity.class.getName(), response);
             LoginResponse result = new Gson().fromJson(response, LoginResponse.class);
-            Intent intent = new Intent(LoginPage.this, HomePage.class);
+            Intent intent = new Intent(LoginActivity.this, UserActivity.class);
 
             Bundle bundle = new Bundle();
             bundle.putInt("user_id", result.getUser_id());
@@ -85,6 +85,7 @@ public class LoginPage extends AppCompatActivity {
 
             progressDialog.dismiss();
             startActivity(intent);
+            finish();
         }
     };
 }
