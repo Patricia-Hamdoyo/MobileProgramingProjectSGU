@@ -33,24 +33,24 @@ public class VolleyErrorListener implements Response.ErrorListener {
         Log.d(VolleyErrorListener.class.getName(), "Error caught");
         try {
             Log.e(VolleyErrorListener.class.getName(), new String(error.networkResponse.data, "UTF-8"));
+            if (error.networkResponse == null) {
+                Toast.makeText(context, "Connection error", Toast.LENGTH_LONG).show();
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+                return;
+            }
+            ErrorResponseWrapper errorResponse = new Gson().fromJson(new String(error.networkResponse.data, "UTF-8"), ErrorResponseWrapper.class);
+            if (errorResponse.getError() != null) {
+                Toast.makeText(context, errorResponse.getError(), Toast.LENGTH_LONG).show();
+            } else {
+                Log.d("notice", "Hola");
+
+            }
+            if (progressDialog != null)
+                progressDialog.dismiss();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if (error.networkResponse == null) {
-            Toast.makeText(context, "Connection error", Toast.LENGTH_LONG).show();
-            if (progressDialog != null)
-                progressDialog.dismiss();
-            return;
-        }
-        ErrorResponseWrapper errorResponse = new Gson().fromJson(error.getMessage(), ErrorResponseWrapper.class);
-        if (errorResponse.getError() != null) {
-            Toast.makeText(context, errorResponse.getError(), Toast.LENGTH_LONG).show();
-        } else {
-            Log.d("notice", "Hola");
-
-        }
-        if (progressDialog != null)
-            progressDialog.dismiss();
     }
 }
 

@@ -2,6 +2,7 @@ package com.example.mobproglabquiz1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,8 @@ public class CreatorRegisterActivity extends AppCompatActivity {
     Bundle bundle;
     Button registerBtn;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,12 @@ public class CreatorRegisterActivity extends AppCompatActivity {
     }
 
     private void register(View view) {
+
+        progressDialog = new ProgressDialog(view.getContext());
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Registering new creator...");
+        progressDialog.show();
+
         EditText biodata = findViewById(R.id.biodata);
         EditText education = findViewById(R.id.education);
         EditText experience = findViewById(R.id.experience);
@@ -43,7 +52,7 @@ public class CreatorRegisterActivity extends AppCompatActivity {
                 experience.getText().toString()
         );
 
-        new CreatorDAO(this).register(creator, onSuccessAction, new VolleyErrorListener(this, null));
+        new CreatorDAO(this).register(creator, onSuccessAction, new VolleyErrorListener(this, progressDialog));
     }
 
     private Response.Listener<String> onSuccessAction = new Response.Listener<String>() {
@@ -51,6 +60,7 @@ public class CreatorRegisterActivity extends AppCompatActivity {
         public void onResponse(String response) {
             Log.d(CreatorRegisterActivity.class.getName(), response);
             setResult(RESULT_OK);
+            progressDialog.dismiss();
             finish();
         }
     };

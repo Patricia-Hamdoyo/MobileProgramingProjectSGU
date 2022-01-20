@@ -84,4 +84,28 @@ public class CreatorDAO {
         };
         queue.add(request);
     }
+
+    public void getJobs(final int id, Response.Listener<String> successAction, Response.ErrorListener errorAction) {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                Constants.getRoute("creator/" + id + "/jobs"),
+                successAction,
+                errorAction
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                super.getHeaders();
+                Map<String, String> header = new HashMap<>();
+                header.put("Content-Type", "application/json; charset=utf-8");
+                return header;
+            }
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+            
+        };
+        queue.add(request);
+    }
 }

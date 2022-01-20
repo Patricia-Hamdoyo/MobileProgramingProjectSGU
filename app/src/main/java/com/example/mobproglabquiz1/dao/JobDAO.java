@@ -54,7 +54,31 @@ public class JobDAO extends DAO<JobModel> {
 
     @Override
     public void post(JobModel model, Response.Listener<String> successAction, Response.ErrorListener errorAction) {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                Constants.getRoute("jobs"),
+                successAction,
+                errorAction
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                super.getHeaders();
+                Map<String, String> header = new HashMap<>();
+                header.put("Content-Type", "application/json; charset=utf-8");
+                return header;
+            }
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
 
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return new Gson().toJson(model).getBytes();
+            }
+        };
+        queue.add(request);
     }
 
     @Override

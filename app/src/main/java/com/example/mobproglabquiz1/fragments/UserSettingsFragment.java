@@ -2,6 +2,7 @@ package com.example.mobproglabquiz1.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.mobproglabquiz1.CreatorMainActivity;
 import com.example.mobproglabquiz1.CreatorRegisterActivity;
+import com.example.mobproglabquiz1.LoginActivity;
 import com.example.mobproglabquiz1.R;
 import com.example.mobproglabquiz1.dao.CreatorDAO;
 import com.google.gson.Gson;
@@ -28,6 +30,8 @@ public class UserSettingsFragment extends Fragment {
 
     View view;
 
+    private ProgressDialog progressDialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +39,18 @@ public class UserSettingsFragment extends Fragment {
 
         LinearLayout creatorMode = view.findViewById(R.id.creator_mode);
         creatorMode.setOnClickListener(button -> {
+            progressDialog = new ProgressDialog(view.getContext());
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Logging in...");
+            progressDialog.show();
             new CreatorDAO(view.getContext()).login(requireArguments().getInt("user_id"), onSuccessCallback, onErrorCallback);
+        });
+
+        LinearLayout logout = view.findViewById(R.id.logout);
+        logout.setOnClickListener(button -> {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         });
 
         this.view = view;
@@ -57,6 +72,7 @@ public class UserSettingsFragment extends Fragment {
             intent.putExtras(bundle);
 
             startActivity(intent);
+            progressDialog.dismiss();
             getActivity().finish();
         }
     };

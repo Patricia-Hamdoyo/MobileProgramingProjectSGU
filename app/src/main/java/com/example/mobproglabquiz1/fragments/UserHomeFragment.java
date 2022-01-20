@@ -18,19 +18,21 @@ import com.android.volley.Response;
 import com.example.mobproglabquiz1.R;
 import com.example.mobproglabquiz1.dao.JobDAO;
 import com.example.mobproglabquiz1.models.JobModel;
+import com.example.mobproglabquiz1.recycler.JobModelAdapter;
 import com.example.mobproglabquiz1.utils.VolleyErrorListener;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class UserHomeFragment extends Fragment {
 
     View view;
-    ArrayList<JobModel> jobs;
     TextView title;
 
     @Nullable
@@ -54,78 +56,18 @@ public class UserHomeFragment extends Fragment {
     private Response.Listener<String> onLoginSuccessCallback = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                JSONArray jsonArray = jsonObject.getJSONArray("data");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObj = jsonArray.getJSONObject(i);
-                    JobModel job = new JobModel(
-                            jsonObj.getInt("id"),
-                            jsonObj.getString("title"),
-                            jsonObj.getString("description"),
-                            jsonObj.getDouble("price"),
-                            jsonObj.getString("creator")
-                    );
-                    jobs.add(job);
-                }
+            JobModel[] jobs = new Gson().fromJson(response, JobModel[].class);
 
-                RecyclerView rv = view.findViewById(R.id.recycler_view);
+            RecyclerView rv = view.findViewById(R.id.recycler_view);
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
-                JobModelAdapter dataModelAdapter = new JobModelAdapter(jobs);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+            JobModelAdapter jobModelAdapter = new JobModelAdapter(new ArrayList<>(Arrays.asList(jobs)));
 
-                rv.setAdapter(dataModelAdapter);
-                rv.setLayoutManager(layoutManager);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            rv.setAdapter(jobModelAdapter);
+            rv.setLayoutManager(layoutManager);
+
         }
     };
 
 
-}
-
-class JobModelAdapter extends RecyclerView.Adapter<JobModelViewHolder> {
-    ArrayList<JobModel> jobs;
-    public JobModelAdapter(ArrayList<JobModel> jobs) {
-        this.jobs = jobs;
-    }
-
-    @NonNull
-    @Override
-    public JobModelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.list_card_jobs, parent, false);
-
-        return new JobModelViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull JobModelViewHolder holder, int position) {
-        JobModel job = jobs.get(position);
-        holder.title.setText(job.getTitle());
-        holder.creator.setText(job.getCreator());
-        holder.price.setText(Double.toString(job.getPrice()));
-    }
-
-    @Override
-    public int getItemCount() {
-        return jobs.size();
-    }
-}
-
-class JobModelViewHolder extends RecyclerView.ViewHolder {
-    View cardView;
-    TextView title;
-    TextView creator;
-    TextView price;
-
-    public JobModelViewHolder(@NonNull View itemView) {
-        super(itemView);
-        title = itemView.findViewById(R.id.title_text);
-        creator = itemView.findViewById(R.id.creator_text);
-        price = itemView.findViewById(R.id.price_text);
-
-    }
 }

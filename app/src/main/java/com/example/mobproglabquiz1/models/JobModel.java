@@ -6,26 +6,28 @@ public class JobModel {
     private String title;
     private String description;
     private double price;
-    private String creator;
+    private String fullname;
+    private int creator_id;
 
-    public JobModel(int id, String title, String description, double price, String creator) {
+    public JobModel(int id, String title, String description, double price, String fullname) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
-        this.creator = creator;
+        this.fullname = fullname;
     }
 
-    public JobModel(int id, String title, String creator) {
+    public JobModel(int id, String title, String fullname) {
         this.id = id;
         this.title = title;
-        this.creator = creator;
+        this.fullname = fullname;
     }
 
-    public JobModel(String title, String description, String creator) {
+    public JobModel(String title, String description, double price, int creator_id) {
         this.title = title;
         this.description = description;
-        this.creator = creator;
+        this.price = price;
+        this.creator_id = creator_id;
     }
 
     public int getId() {
@@ -60,11 +62,19 @@ public class JobModel {
         this.price = price;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public int getCreator_id() {
+        return creator_id;
+    }
+
+    public void setCreator_id(int creator_id) {
+        this.creator_id = creator_id;
     }
 }
