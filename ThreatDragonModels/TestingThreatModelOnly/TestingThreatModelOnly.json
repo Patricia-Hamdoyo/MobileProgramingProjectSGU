@@ -1,0 +1,27 @@
+{
+  "version": "2.1.3",
+  "summary": {
+    "title": "TestingThreatModelOnly",
+    "owner": "Patricia H",
+    "description": "Testing the threat model for the first time.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "TestStrideDiagram",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.1.3",
+        "cells": [],
+        "description": "Testing Diagram"
+      }
+    ],
+    "diagramTop": 2,
+    "reviewer": "",
+    "threatTop": 0
+  }
+}
